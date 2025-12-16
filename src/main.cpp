@@ -1,4 +1,4 @@
-﻿#include "../include/User.h"
+#include "../include/User.h"
 #include "../include/Food.h"
 #include "../include/Meal.h"
 #include "../include/Database.h"
@@ -103,66 +103,84 @@ private:
     }
 
     void registerUser() {
-        std::cout << "\n=== 用户注册 ===" << std::endl;
-        
-        std::string username;
-        while (true) {
-            username = Utils::getStringInput("请输入用户名: ");
-            if (username.empty()) {
-                std::cout << "用户名不能为空！" << std::endl;
-                continue;
-            }
-            
-            auto users = db.getAllUsers();
-            bool exists = false;
-            for (const auto& user : users) {
-                if (user.getUsername() == username) {
-                    exists = true;
-                    break;
-                }
-            }
-            if (exists) {
-                std::cout << "用户名已存在，请选择其他用户名！" << std::endl;
-            } else {
-                break;
-            }
-        }
-        
-        std::string password = Utils::getStringInput("请输入密码: ");
-        
-        int newId = db.getNextUserId();
-        User newUser(newId, username, password);
-        
-        // 设置基本信息
-        std::cout << "\n=== 设置基本信息 ===" << std::endl;
-        newUser.setAge(Utils::getIntInput("请输入年龄: "));
-        newUser.setWeight(Utils::getDoubleInput("请输入体重(kg): "));
-        newUser.setHeight(Utils::getDoubleInput("请输入身高(cm): "));
-        
-        std::cout << "请选择性别: " << std::endl;
-        std::cout << "1. 男性" << std::endl;
-        std::cout << "2. 女性" << std::endl;
-        int genderChoice = Utils::getIntInput("选择 (1-2): ");
-        newUser.setGender(genderChoice == 1 ? "male" : "female");
-        
-        std::cout << "\n请选择活动水平: " << std::endl;
-        std::cout << "1. 久坐 (很少运动)" << std::endl;
-        std::cout << "2. 轻度活动 (轻度运动1-3天/周)" << std::endl;
-        std::cout << "3. 中度活动 (中度运动3-5天/周)" << std::endl;
-        std::cout << "4. 高强度活动 (高强度运动6-7天/周)" << std::endl;
-        std::cout << "5. 极高强度 (每天高强度运动)" << std::endl;
-        int activityChoice = Utils::getIntInput("选择 (1-5): ");
-        std::string activityLevels[] = {"sedentary", "light", "moderate", "active", "very_active"};
-        newUser.setActivityLevel(activityLevels[activityChoice - 1]);
-        
-        // 计算营养目标
-        newUser.calculateNutritionGoals();
-        
-        db.saveUser(newUser);
-        
-        std::cout << "\n注册成功！" << std::endl;
-        currentUser = &db.getAllUsers().back();
-    }
+         std::cout << "\n=== 用户注册 ===" << std::endl;
+
+         std::string username;
+         while (true) {
+             username = Utils::getStringInput("请输入用户名: ");
+             if (username.empty()) {
+                 std::cout << "用户名不能为空！" << std::endl;
+                 continue;
+             }
+
+             auto users = db.getAllUsers();
+             bool exists = false;
+             for (const auto& user : users) {
+                 if (user.getUsername() == username) {
+                     exists = true;
+                     break;
+                 }
+             }
+             if (exists) {
+                 std::cout << "用户名已存在，请选择其他用户名！" << std::endl;
+             } else {
+                 break;
+             }
+         }
+
+         std::string password = Utils::getStringInput("请输入密码: ");
+
+         int newId = db.getNextUserId();
+         User newUser(newId, username, password);
+
+         // 设置基本信息
+         std::cout << "\n=== 设置基本信息 ===" << std::endl;
+         newUser.setAge(Utils::getIntInput("请输入年龄: "));
+         newUser.setWeight(Utils::getDoubleInput("请输入体重(kg): "));
+         newUser.setHeight(Utils::getDoubleInput("请输入身高(cm): "));
+
+         std::cout << "请选择性别: " << std::endl;
+         std::cout << "1. 男性" << std::endl;
+         std::cout << "2. 女性" << std::endl;
+
+         int genderChoice;
+         while (true) {
+             genderChoice = Utils::getIntInput("选择 (1-2): ");
+             if (genderChoice >= 1 && genderChoice <= 2) {
+                 break;
+             }
+             std::cout << "无效选择，请输入1-2之间的数字。" << std::endl;
+         }
+
+         newUser.setGender(genderChoice == 1 ? "male" : "female");
+
+         std::cout << "\n请选择活动水平: " << std::endl;
+         std::cout << "1. 久坐 (很少运动)" << std::endl;
+         std::cout << "2. 轻度活动 (轻度运动1-3天/周)" << std::endl;
+         std::cout << "3. 中度活动 (中度运动3-5天/周)" << std::endl;
+         std::cout << "4. 高强度活动 (高强度运动6-7天/周)" << std::endl;
+         std::cout << "5. 极高强度 (每天高强度运动)" << std::endl;
+
+         int activityChoice;
+         while (true) {
+             activityChoice = Utils::getIntInput("选择 (1-5): ");
+             if (activityChoice >= 1 && activityChoice <= 5) {
+                 break;
+             }
+             std::cout << "无效选择，请输入1-5之间的数字。" << std::endl;
+         }
+
+         std::string activityLevels[] = {"sedentary", "light", "moderate", "active", "very_active"};
+         newUser.setActivityLevel(activityLevels[activityChoice - 1]);
+
+         // 计算营养目标
+         newUser.calculateNutritionGoals();
+
+         db.saveUser(newUser);
+
+         std::cout << "\n注册成功！" << std::endl;
+         currentUser = &db.getAllUsers().back();
+     }
 
     void mainMenu() {
         Utils::clearScreen();
@@ -212,40 +230,58 @@ private:
     }
 
     void showUserProfile() {
-        currentUser->displayProfile();
-        
-        std::cout << "\n是否需要修改资料？ (y/n): ";
-        std::string choice;
-        std::cin >> choice;
-        
-        if (choice == "y" || choice == "Y") {
-            std::cout << "\n=== 修改个人信息 ===" << std::endl;
-            currentUser->setAge(Utils::getIntInput("请输入年龄: "));
-            currentUser->setWeight(Utils::getDoubleInput("请输入体重(kg): "));
-            currentUser->setHeight(Utils::getDoubleInput("请输入身高(cm): "));
-            
-            std::cout << "请选择性别: " << std::endl;
-            std::cout << "1. 男性" << std::endl;
-            std::cout << "2. 女性" << std::endl;
-            int genderChoice = Utils::getIntInput("选择 (1-2): ");
-            currentUser->setGender(genderChoice == 1 ? "male" : "female");
-            
-            std::cout << "\n请选择活动水平: " << std::endl;
-            std::cout << "1. 久坐 (很少运动)" << std::endl;
-            std::cout << "2. 轻度活动 (轻度运动1-3天/周)" << std::endl;
-            std::cout << "3. 中度活动 (中度运动3-5天/周)" << std::endl;
-            std::cout << "4. 高强度活动 (高强度运动6-7天/周)" << std::endl;
-            std::cout << "5. 极高强度 (每天高强度运动)" << std::endl;
-            int activityChoice = Utils::getIntInput("选择 (1-5): ");
-            std::string activityLevels[] = {"sedentary", "light", "moderate", "active", "very_active"};
-            currentUser->setActivityLevel(activityLevels[activityChoice - 1]);
-            
-            currentUser->calculateNutritionGoals();
-            db.updateUser(*currentUser);
-            
-            std::cout << "\n资料更新成功！" << std::endl;
-        }
-    }
+         currentUser->displayProfile();
+
+         std::cout << "\n是否需要修改资料？ (y/n): ";
+         std::string choice;
+         std::cin >> choice;
+
+         if (choice == "y" || choice == "Y") {
+             std::cout << "\n=== 修改个人信息 ===" << std::endl;
+             currentUser->setAge(Utils::getIntInput("请输入年龄: "));
+             currentUser->setWeight(Utils::getDoubleInput("请输入体重(kg): "));
+             currentUser->setHeight(Utils::getDoubleInput("请输入身高(cm): "));
+
+             std::cout << "请选择性别: " << std::endl;
+             std::cout << "1. 男性" << std::endl;
+             std::cout << "2. 女性" << std::endl;
+
+             int genderChoice;
+             while (true) {
+                 genderChoice = Utils::getIntInput("选择 (1-2): ");
+                 if (genderChoice >= 1 && genderChoice <= 2) {
+                     break;
+                 }
+                 std::cout << "无效选择，请输入1-2之间的数字。" << std::endl;
+             }
+
+             currentUser->setGender(genderChoice == 1 ? "male" : "female");
+
+             std::cout << "\n请选择活动水平: " << std::endl;
+             std::cout << "1. 久坐 (很少运动)" << std::endl;
+             std::cout << "2. 轻度活动 (轻度运动1-3天/周)" << std::endl;
+             std::cout << "3. 中度活动 (中度运动3-5天/周)" << std::endl;
+             std::cout << "4. 高强度活动 (高强度运动6-7天/周)" << std::endl;
+             std::cout << "5. 极高强度 (每天高强度运动)" << std::endl;
+
+             int activityChoice;
+             while (true) {
+                 activityChoice = Utils::getIntInput("选择 (1-5): ");
+                 if (activityChoice >= 1 && activityChoice <= 5) {
+                     break;
+                 }
+                 std::cout << "无效选择，请输入1-5之间的数字。" << std::endl;
+             }
+
+             std::string activityLevels[] = {"sedentary", "light", "moderate", "active", "very_active"};
+             currentUser->setActivityLevel(activityLevels[activityChoice - 1]);
+
+             currentUser->calculateNutritionGoals();
+             db.updateUser(*currentUser);
+
+             std::cout << "\n资料更新成功！" << std::endl;
+         }
+     }
 
     void showFoodDatabase() {
         auto foods = db.getAllFoods();
