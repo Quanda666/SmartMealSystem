@@ -1,4 +1,4 @@
-﻿#include "../include/Utils.h"
+#include "../include/Utils.h"
 #include <iostream>
 #include <limits>
 #include <algorithm>
@@ -29,6 +29,9 @@ int Utils::getIntInput(const std::string& prompt) {
             std::cin.clear();
             std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
             std::cout << "无效输入，请输入一个整数。" << std::endl;
+        } else if (value < -1000000 || value > 1000000) {
+            std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+            std::cout << "输入值超出合理范围，请重新输入。" << std::endl;
         } else {
             std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
             return value;
@@ -46,6 +49,9 @@ double Utils::getDoubleInput(const std::string& prompt) {
             std::cin.clear();
             std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
             std::cout << "无效输入，请输入一个数字。" << std::endl;
+        } else if (value < 0 || value > 1000000) {
+            std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+            std::cout << "输入值超出合理范围，请重新输入。" << std::endl;
         } else {
             std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
             return value;
@@ -55,16 +61,16 @@ double Utils::getDoubleInput(const std::string& prompt) {
 
 std::string Utils::getStringInput(const std::string& prompt) {
     std::string value;
-    while (true) {
+    std::cout << prompt;
+    std::getline(std::cin, value);
+    
+    while (value.empty()) {
+        std::cout << "输入不能为空，请重试。" << std::endl;
         std::cout << prompt;
         std::getline(std::cin, value);
-        
-        if (value.empty()) {
-            std::cout << "输入不能为空，请重试。" << std::endl;
-        } else {
-            return value;
-        }
     }
+    
+    return value;
 }
 
 std::string Utils::trim(const std::string& str) {

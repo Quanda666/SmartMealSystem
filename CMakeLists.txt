@@ -31,15 +31,33 @@ add_executable(MealRecommendationSystem ${SOURCES} ${HEADERS})
 # 包含头文件目录
 target_include_directories(MealRecommendationSystem PRIVATE include)
 
+# 编译器特定设置
+if(MSVC)
+    # MSVC编译器设置
+    target_compile_options(MealRecommendationSystem PRIVATE
+        /utf-8           # 使用UTF-8编码
+        /W3              # 警告级别3
+        /wd4819          # 禁用C4819编码警告
+    )
+    target_compile_definitions(MealRecommendationSystem PRIVATE 
+        UNICODE 
+        _UNICODE
+        _CRT_SECURE_NO_WARNINGS
+    )
+elseif(CMAKE_CXX_COMPILER_ID MATCHES "GNU|Clang")
+    # GCC/Clang编译器设置
+    target_compile_options(MealRecommendationSystem PRIVATE
+        -finput-charset=UTF-8
+        -fexec-charset=UTF-8
+    )
+endif()
+
 # Windows特定设置
 if(WIN32)
     # 设置控制台应用程序
     set_target_properties(MealRecommendationSystem PROPERTIES
         WIN32_EXECUTABLE FALSE
     )
-    
-    # 设置字符集为Unicode
-    target_compile_definitions(MealRecommendationSystem PRIVATE UNICODE _UNICODE)
 endif()
 
 # 设置输出目录
