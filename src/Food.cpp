@@ -23,19 +23,19 @@ bool Food::hasTag(const std::string& tag) const {
 
 void Food::displayInfo() const {
     std::cout << "========================================" << std::endl;
-    std::cout << "  食物: " << name << " (ID: " << id << ")" << std::endl;
-    std::cout << "  类别: " << category << std::endl;
+    std::cout << "  Food: " << name << " (ID: " << id << ")" << std::endl;
+    std::cout << "  Category: " << category << std::endl;
     std::cout << "========================================" << std::endl;
-    std::cout << "  营养成分 (每100g):" << std::endl;
-    std::cout << "    热量:     " << std::fixed << std::setprecision(1) 
+    std::cout << "  Nutrition (per 100g):" << std::endl;
+    std::cout << "    Calories:  " << std::fixed << std::setprecision(1) 
               << calories << " kcal" << std::endl;
-    std::cout << "    蛋白质:   " << protein << " g" << std::endl;
-    std::cout << "    碳水化合物: " << carbohydrates << " g" << std::endl;
-    std::cout << "    脂肪:     " << fat << " g" << std::endl;
-    std::cout << "    纤维素:   " << fiber << " g" << std::endl;
+    std::cout << "    Protein:   " << protein << " g" << std::endl;
+    std::cout << "    Carbs:     " << carbohydrates << " g" << std::endl;
+    std::cout << "    Fat:       " << fat << " g" << std::endl;
+    std::cout << "    Fiber:     " << fiber << " g" << std::endl;
     
     if (!tags.empty()) {
-        std::cout << "  口味标签: ";
+        std::cout << "  Tags: ";
         bool first = true;
         for (const auto& tag : tags) {
             if (!first) std::cout << ", ";

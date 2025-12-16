@@ -29,7 +29,7 @@ void User::addAllergen(const std::string& allergen) {
 
 void User::calculateNutritionGoals() {
     double bmr;
-    if (gender == "male" || gender == "男") {
+    if (gender == "male" || gender == "Male") {
         bmr = 10 * weight + 6.25 * height - 5 * age + 5;
     } else {
         bmr = 10 * weight + 6.25 * height - 5 * age - 161;
@@ -50,24 +50,24 @@ void User::calculateNutritionGoals() {
 
 void User::displayProfile() const {
     std::cout << "\n===============================================" << std::endl;
-    std::cout << "              用户资料                         " << std::endl;
+    std::cout << "              User Profile                     " << std::endl;
     std::cout << "===============================================" << std::endl;
-    std::cout << "  用户名: " << std::left << std::setw(44) << username << std::endl;
-    std::cout << "  年龄:   " << std::left << std::setw(44) << age << std::endl;
-    std::cout << "  性别:   " << std::left << std::setw(44) << gender << std::endl;
-    std::cout << "  体重:   " << std::left << std::setw(44) << (std::to_string((int)weight) + " kg") << std::endl;
-    std::cout << "  身高:   " << std::left << std::setw(44) << (std::to_string((int)height) + " cm") << std::endl;
-    std::cout << "  活动水平: " << std::left << std::setw(42) << activityLevel << std::endl;
+    std::cout << "  Username: " << std::left << std::setw(38) << username << std::endl;
+    std::cout << "  Age:      " << std::left << std::setw(38) << age << std::endl;
+    std::cout << "  Gender:   " << std::left << std::setw(38) << gender << std::endl;
+    std::cout << "  Weight:   " << std::left << std::setw(38) << (std::to_string((int)weight) + " kg") << std::endl;
+    std::cout << "  Height:   " << std::left << std::setw(38) << (std::to_string((int)height) + " cm") << std::endl;
+    std::cout << "  Activity: " << std::left << std::setw(38) << activityLevel << std::endl;
     std::cout << "===============================================" << std::endl;
-    std::cout << "  每日营养目标:                                  " << std::endl;
-    std::cout << "    热量:     " << std::left << std::setw(39) << (std::to_string((int)dailyCalorieGoal) + " kcal") << std::endl;
-    std::cout << "    蛋白质:   " << std::left << std::setw(39) << (std::to_string((int)dailyProteinGoal) + " g") << std::endl;
-    std::cout << "    碳水化合物: " << std::left << std::setw(37) << (std::to_string((int)dailyCarbGoal) + " g") << std::endl;
-    std::cout << "    脂肪:     " << std::left << std::setw(39) << (std::to_string((int)dailyFatGoal) + " g") << std::endl;
+    std::cout << "  Daily Nutrition Goals:                       " << std::endl;
+    std::cout << "    Calories:  " << std::left << std::setw(33) << (std::to_string((int)dailyCalorieGoal) + " kcal") << std::endl;
+    std::cout << "    Protein:   " << std::left << std::setw(33) << (std::to_string((int)dailyProteinGoal) + " g") << std::endl;
+    std::cout << "    Carbs:     " << std::left << std::setw(33) << (std::to_string((int)dailyCarbGoal) + " g") << std::endl;
+    std::cout << "    Fat:       " << std::left << std::setw(33) << (std::to_string((int)dailyFatGoal) + " g") << std::endl;
     
     if (!preferredTags.empty()) {
         std::cout << "===============================================" << std::endl;
-        std::cout << "  喜欢的口味: ";
+        std::cout << "  Preferred: ";
         std::stringstream ss;
         bool first = true;
         for (const auto& tag : preferredTags) {
@@ -79,7 +79,7 @@ void User::displayProfile() const {
     }
     
     if (!avoidedTags.empty()) {
-        std::cout << "  避免的口味: ";
+        std::cout << "  Avoided:   ";
         std::stringstream ss;
         bool first = true;
         for (const auto& tag : avoidedTags) {

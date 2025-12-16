@@ -9,13 +9,13 @@ class Food {
 private:
     int id;
     std::string name;
-    double calories;          // 卡路里(kcal)
-    double protein;           // 蛋白质(g)
-    double carbohydrates;     // 碳水化合物(g)
-    double fat;               // 脂肪(g)
-    double fiber;             // 纤维素(g)
-    std::set<std::string> tags; // 口味标签：辣、甜、咸、酸等
-    std::string category;     // 类别：主食、蔬菜、肉类、水果等
+    double calories;          // calories (kcal)
+    double protein;           // protein (g)
+    double carbohydrates;     // carbohydrates (g)
+    double fat;               // fat (g)
+    double fiber;             // fiber (g)
+    std::set<std::string> tags; // taste tags: spicy, sweet, salty, sour, etc.
+    std::string category;     // category: staple food, vegetables, meat, fruit, etc.
 
 public:
     Food();

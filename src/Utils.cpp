@@ -14,7 +14,7 @@ void Utils::clearScreen() {
 }
 
 void Utils::pause() {
-    std::cout << "\n按回车键继续...";
+    std::cout << "\nPress Enter to continue...";
     std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
     std::cin.get();
 }
@@ -28,7 +28,7 @@ int Utils::getIntInput(const std::string& prompt) {
         if (std::cin.fail()) {
             std::cin.clear();
             std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
-            std::cout << "无效输入，请输入一个整数。" << std::endl;
+            std::cout << "Invalid input, please enter an integer." << std::endl;
         } else {
             std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
             return value;
@@ -45,7 +45,7 @@ double Utils::getDoubleInput(const std::string& prompt) {
         if (std::cin.fail()) {
             std::cin.clear();
             std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
-            std::cout << "无效输入，请输入一个数字。" << std::endl;
+            std::cout << "Invalid input, please enter a number." << std::endl;
         } else {
             std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
             return value;
@@ -60,7 +60,7 @@ std::string Utils::getStringInput(const std::string& prompt) {
         std::getline(std::cin, value);
         
         if (value.empty()) {
-            std::cout << "输入不能为空，请重试。" << std::endl;
+            std::cout << "Input cannot be empty, please try again." << std::endl;
         } else {
             return value;
         }
@@ -107,9 +107,9 @@ void Utils::displayProgressBar(double percentage, int width) {
 
 std::string Utils::formatDate(const std::string& date) {
     if (date.length() == 10 && date[4] == '-' && date[7] == '-') {
-        return date.substr(0, 4) + "年" + 
-               date.substr(5, 2) + "月" + 
-               date.substr(8, 2) + "日";
+        return date.substr(0, 4) + "Year " + 
+               date.substr(5, 2) + "Month " + 
+               date.substr(8, 2) + "Day";
     }
     return date;
 }
