@@ -151,7 +151,7 @@ bool Database::loadUsers() {
 }
 
 bool Database::saveUser(const User& user) {
-    // 检查用户是否已存在
+    // Check if user already exists
     for (size_t i = 0; i < users.size(); ++i) {
         if (users[i].getId() == user.getId()) {
             users[i] = user;
@@ -159,7 +159,7 @@ bool Database::saveUser(const User& user) {
         }
     }
     
-    // 添加新用户
+    // Add new user
     users.push_back(user);
     return saveUsers();
 }
@@ -209,7 +209,7 @@ bool Database::loadMeals() {
                 Meal meal(id, userId, date, mealType);
                 meal.setIsRecommended(isRecommended);
                 
-                // 解析食物ID列表
+                // Parse food ID list
                 if (tokens.size() > 9) {
                     auto foodIds = split(tokens[9], ',');
                     for (const auto& foodIdStr : foodIds) {
@@ -235,7 +235,7 @@ bool Database::loadMeals() {
 }
 
 bool Database::saveMeal(const Meal& meal) {
-    // 检查餐单是否已存在
+    // Check if meal already exists
     for (size_t i = 0; i < meals.size(); ++i) {
         if (meals[i].getId() == meal.getId()) {
             meals[i] = meal;
@@ -243,7 +243,7 @@ bool Database::saveMeal(const Meal& meal) {
         }
     }
     
-    // 添加新餐单
+    // Add new meal
     meals.push_back(meal);
     return saveMeals();
 }
@@ -345,38 +345,38 @@ int Database::getNextMealId() const {
 void Database::initializeSampleData() {
     foods.clear();
     
-    foods.push_back(Food(1, "白米饭", 116, 2.6, 25.6, 0.3, 0.3, {"清淡"}, "主食"));
-    foods.push_back(Food(2, "全麦面包", 246, 8.5, 45.3, 3.5, 6.8, {"清淡"}, "主食"));
-    foods.push_back(Food(3, "燕麦粥", 68, 2.4, 12.0, 1.4, 1.7, {"清淡"}, "主食"));
-    foods.push_back(Food(4, "红薯", 86, 1.6, 20.1, 0.2, 3.0, {"甜"}, "主食"));
+    foods.push_back(Food(1, "White Rice", 116, 2.6, 25.6, 0.3, 0.3, {"light"}, "Staple Food"));
+    foods.push_back(Food(2, "Whole Wheat Bread", 246, 8.5, 45.3, 3.5, 6.8, {"light"}, "Staple Food"));
+    foods.push_back(Food(3, "Oatmeal", 68, 2.4, 12.0, 1.4, 1.7, {"light"}, "Staple Food"));
+    foods.push_back(Food(4, "Sweet Potato", 86, 1.6, 20.1, 0.2, 3.0, {"sweet"}, "Staple Food"));
     
-    foods.push_back(Food(5, "鸡胸肉", 133, 24.6, 2.5, 5.0, 0.0, {"清淡"}, "肉类"));
-    foods.push_back(Food(6, "三文鱼", 206, 22.5, 0.0, 13.4, 0.0, {"鲜"}, "肉类"));
-    foods.push_back(Food(7, "牛肉", 250, 26.3, 0.0, 15.8, 0.0, {"鲜"}, "肉类"));
-    foods.push_back(Food(8, "猪里脊", 143, 20.3, 1.3, 7.9, 0.0, {"鲜"}, "肉类"));
+    foods.push_back(Food(5, "Chicken Breast", 133, 24.6, 2.5, 5.0, 0.0, {"light"}, "Meat"));
+    foods.push_back(Food(6, "Salmon", 206, 22.5, 0.0, 13.4, 0.0, {"fresh"}, "Meat"));
+    foods.push_back(Food(7, "Beef", 250, 26.3, 0.0, 15.8, 0.0, {"fresh"}, "Meat"));
+    foods.push_back(Food(8, "Pork Loin", 143, 20.3, 1.3, 7.9, 0.0, {"fresh"}, "Meat"));
     
-    foods.push_back(Food(9, "西兰花", 34, 4.1, 6.6, 0.4, 3.7, {"清淡"}, "蔬菜"));
-    foods.push_back(Food(10, "菠菜", 23, 2.9, 3.6, 0.3, 2.2, {"清淡"}, "蔬菜"));
-    foods.push_back(Food(11, "胡萝卜", 41, 0.9, 9.6, 0.2, 2.8, {"甜"}, "蔬菜"));
-    foods.push_back(Food(12, "番茄", 18, 0.9, 3.9, 0.2, 1.2, {"酸"}, "蔬菜"));
+    foods.push_back(Food(9, "Broccoli", 34, 4.1, 6.6, 0.4, 3.7, {"light"}, "Vegetables"));
+    foods.push_back(Food(10, "Spinach", 23, 2.9, 3.6, 0.3, 2.2, {"light"}, "Vegetables"));
+    foods.push_back(Food(11, "Carrot", 41, 0.9, 9.6, 0.2, 2.8, {"sweet"}, "Vegetables"));
+    foods.push_back(Food(12, "Tomato", 18, 0.9, 3.9, 0.2, 1.2, {"sour"}, "Vegetables"));
     
-    foods.push_back(Food(13, "豆腐", 76, 8.1, 4.2, 3.7, 0.4, {"清淡"}, "豆制品"));
-    foods.push_back(Food(14, "豆浆", 31, 3.0, 1.1, 1.6, 1.1, {"清淡"}, "豆制品"));
+    foods.push_back(Food(13, "Tofu", 76, 8.1, 4.2, 3.7, 0.4, {"light"}, "Soy Products"));
+    foods.push_back(Food(14, "Soy Milk", 31, 3.0, 1.1, 1.6, 1.1, {"light"}, "Soy Products"));
     
-    foods.push_back(Food(15, "鸡蛋", 147, 12.6, 1.3, 10.6, 0.0, {"清淡"}, "蛋类"));
-    foods.push_back(Food(16, "鸭蛋", 180, 12.6, 3.1, 13.0, 0.0, {"咸"}, "蛋类"));
+    foods.push_back(Food(15, "Egg", 147, 12.6, 1.3, 10.6, 0.0, {"light"}, "Eggs"));
+    foods.push_back(Food(16, "Duck Egg", 180, 12.6, 3.1, 13.0, 0.0, {"salty"}, "Eggs"));
     
-    foods.push_back(Food(17, "苹果", 52, 0.3, 13.8, 0.2, 2.4, {"甜", "酸"}, "水果"));
-    foods.push_back(Food(18, "香蕉", 89, 1.1, 22.8, 0.3, 2.6, {"甜"}, "水果"));
-    foods.push_back(Food(19, "橙子", 47, 0.9, 11.8, 0.1, 2.4, {"酸", "甜"}, "水果"));
-    foods.push_back(Food(20, "葡萄", 62, 0.6, 15.9, 0.2, 0.9, {"甜"}, "水果"));
+    foods.push_back(Food(17, "Apple", 52, 0.3, 13.8, 0.2, 2.4, {"sweet", "sour"}, "Fruits"));
+    foods.push_back(Food(18, "Banana", 89, 1.1, 22.8, 0.3, 2.6, {"sweet"}, "Fruits"));
+    foods.push_back(Food(19, "Orange", 47, 0.9, 11.8, 0.1, 2.4, {"sour", "sweet"}, "Fruits"));
+    foods.push_back(Food(20, "Grapes", 62, 0.6, 15.9, 0.2, 0.9, {"sweet"}, "Fruits"));
     
-    foods.push_back(Food(21, "牛奶", 42, 3.4, 5.0, 1.0, 0.0, {"清淡"}, "奶制品"));
-    foods.push_back(Food(22, "酸奶", 59, 10.0, 3.6, 0.4, 0.0, {"酸", "甜"}, "奶制品"));
-    foods.push_back(Food(23, "奶酪", 113, 7.0, 1.0, 9.0, 0.0, {"清淡"}, "奶制品"));
+    foods.push_back(Food(21, "Milk", 42, 3.4, 5.0, 1.0, 0.0, {"light"}, "Dairy"));
+    foods.push_back(Food(22, "Yogurt", 59, 10.0, 3.6, 0.4, 0.0, {"sour", "sweet"}, "Dairy"));
+    foods.push_back(Food(23, "Cheese", 113, 7.0, 1.0, 9.0, 0.0, {"light"}, "Dairy"));
     
-    foods.push_back(Food(24, "核桃", 654, 15.2, 13.7, 65.2, 6.7, {"香"}, "坚果"));
-    foods.push_back(Food(25, "花生", 567, 25.8, 16.1, 49.2, 8.5, {"香"}, "坚果"));
+    foods.push_back(Food(24, "Walnuts", 654, 15.2, 13.7, 65.2, 6.7, {"aromatic"}, "Nuts"));
+    foods.push_back(Food(25, "Peanuts", 567, 25.8, 16.1, 49.2, 8.5, {"aromatic"}, "Nuts"));
     
     saveFoods();
 }

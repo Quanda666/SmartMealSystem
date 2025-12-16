@@ -1,4 +1,4 @@
-#ifndef USER_H
+﻿#ifndef USER_H
 #define USER_H
 
 #include <string>
@@ -12,19 +12,19 @@ private:
     std::string username;
     std::string password;
     int age;
-    double weight;            // 体重(kg)
-    double height;            // 身高(cm)
-    std::string gender;       // 性别
-    std::string activityLevel; // 活动水平：sedentary, light, moderate, active, very_active
+    double weight;            // weight (kg)
+    double height;            // height (cm)
+    std::string gender;       // gender
+    std::string activityLevel; // activity level: sedentary, light, moderate, active, very_active
     
-    double dailyCalorieGoal;  // 每日卡路里目标
-    double dailyProteinGoal;  // 每日蛋白质目标(g)
-    double dailyCarbGoal;     // 每日碳水目标(g)
-    double dailyFatGoal;      // 每日脂肪目标(g)
+    double dailyCalorieGoal;  // daily calorie goal
+    double dailyProteinGoal;  // daily protein goal (g)
+    double dailyCarbGoal;     // daily carb goal (g)
+    double dailyFatGoal;      // daily fat goal (g)
     
-    std::set<std::string> preferredTags;  // 喜欢的口味标签
-    std::set<std::string> avoidedTags;    // 避免的口味标签
-    std::set<std::string> allergens;      // 过敏源
+    std::set<std::string> preferredTags;  // preferred taste tags
+    std::set<std::string> avoidedTags;    // avoided taste tags
+    std::set<std::string> allergens;      // allergens
 
 public:
     User();
