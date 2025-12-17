@@ -285,7 +285,7 @@ MealRecommendationSystem/
 
 ## 更新日志
 
-### v2.0 Enhanced Edition (2024) 🆕
+### v2.0 Enhanced Edition (2025) 🆕
 - ✨ **智能推荐优化**
   - 修复餐单ID生成bug
   - 实现历史数据加载和同步
