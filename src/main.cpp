@@ -7,6 +7,9 @@
 #include <iostream>
 #include <thread>
 #include <memory>
+#include <filesystem>
+
+namespace fs = std::filesystem;
 
 // 全局数据库实例
 std::unique_ptr<Database> g_db;
@@ -47,6 +50,11 @@ public:
 
 int main() {
     try {
+        // 确保数据目录存在
+        if (!fs::exists("data")) {
+            fs::create_directory("data");
+        }
+        
         // 初始化数据库
         auto db_ptr = std::make_unique<Database>("data/users.txt", "data/foods.txt", "data/meals.txt");
         

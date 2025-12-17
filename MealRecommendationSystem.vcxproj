@@ -204,6 +204,11 @@
   <ItemGroup>
     <None Include="data\.gitkeep" />
   </ItemGroup>
+  <ItemGroup>
+    <Content Include="src\index.html">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>
