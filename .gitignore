@@ -10,6 +10,7 @@ bin/
 obj/
 Debug/
 Release/
+build/
 
 # VS2022 specific files
 *.sdf

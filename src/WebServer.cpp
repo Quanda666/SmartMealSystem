@@ -131,11 +131,18 @@ std::string SimpleWebServer::handleHttpRequest(const std::string& request) {
 
 std::string SimpleWebServer::serveIndexPage() {
     std::string html;
-    // 尝试多个可能的路径
+    // 尝试多个可能的路径（包括VS2022调试和发布路径）
     std::vector<std::string> possiblePaths = {
         "index.html",
         "src/index.html",
-        "./index.html"
+        "./index.html",
+        "../src/index.html",
+        "../../src/index.html",
+        "../../../src/index.html",
+        "bin/Debug/index.html",
+        "bin/Release/index.html",
+        "../../../bin/Debug/index.html",
+        "../../../bin/Release/index.html"
     };
     
     for (const auto& path : possiblePaths) {
@@ -160,12 +167,20 @@ std::string SimpleWebServer::serveIndexPage() {
 std::string SimpleWebServer::handleLogin(const std::string& request) {
     // 简单的登录验证逻辑
     // 这里应该与C++的User类集成
-    return "HTTP/1.1 200 OK\r\nContent-Type: application/json\r\nContent-Length: 50\r\n\r\n{\"success\":true,\"message\":\"Login successful\"}";
+    std::string response_body = "{\"success\":true,\"user\":{\"username\":\"testuser\",\"age\":25,\"gender\":\"male\",\"height\":170,\"weight\":65,\"dailyCalorieGoal\":2000,\"dailyProteinGoal\":50,\"dailyCarbGoal\":250,\"dailyFatGoal\":65},\"message\":\"Login successful\"}";
+    
+    std::string response = "HTTP/1.1 200 OK\r\nContent-Type: application/json; charset=utf-8\r\nContent-Length: " + 
+                          std::to_string(response_body.length()) + "\r\n\r\n" + response_body;
+    return response;
 }
 
 std::string SimpleWebServer::handleRegister(const std::string& request) {
     // 简单的注册逻辑
-    return "HTTP/1.1 200 OK\r\nContent-Type: application/json\r\nContent-Length: 50\r\n\r\n{\"success\":true,\"message\":\"Registration successful\"}";
+    std::string response_body = "{\"success\":true,\"message\":\"Registration successful\"}";
+    
+    std::string response = "HTTP/1.1 200 OK\r\nContent-Type: application/json; charset=utf-8\r\nContent-Length: " + 
+                          std::to_string(response_body.length()) + "\r\n\r\n" + response_body;
+    return response;
 }
 
 void SimpleWebServer::cleanup() {

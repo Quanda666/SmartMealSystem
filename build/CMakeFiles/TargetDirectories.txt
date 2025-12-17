@@ -1,3 +1,0 @@
-/home/engine/project/build/CMakeFiles/MealRecommendationServer.dir
-/home/engine/project/build/CMakeFiles/edit_cache.dir
-/home/engine/project/build/CMakeFiles/rebuild_cache.dir
