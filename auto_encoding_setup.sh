@@ -3,6 +3,9 @@
 # 智能配餐推荐系统 - 智能编码环境设置脚本
 # 自动检测并设置正确的UTF-8编码环境
 
+# 获取脚本所在目录
+PROJECT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+
 echo "================================================"
 echo "智能配餐推荐系统 - 智能编码环境设置"
 echo "================================================"
@@ -58,7 +61,7 @@ fi
 export TERM=xterm-256color
 
 # 创建全局配置文件
-cat > /home/engine/project/.encoding_profile << EOF
+cat > "$PROJECT_DIR/.encoding_profile" << EOF
 # 智能配餐推荐系统 - 编码环境配置
 export LANG=$LANG
 export LC_ALL=$LC_ALL
@@ -80,22 +83,25 @@ echo ""
 echo "启动程序的方法："
 echo ""
 echo "方法1 - 使用配置文件（推荐）:"
-echo "  source /home/engine/project/.encoding_profile"
-echo "  cd /home/engine/project/build && ./bin/MealRecommendationSystem"
+echo "  source $PROJECT_DIR/.encoding_profile"
+echo "  cd $PROJECT_DIR/build && ./bin/MealRecommendationSystem"
 echo ""
 echo "方法2 - 直接运行:"
-echo "  /home/engine/project/run_with_encoding.sh"
+echo "  $PROJECT_DIR/run_with_encoding.sh"
 echo ""
 echo "================================================"
 
 # 创建一键运行脚本
-cat > /home/engine/project/run_with_encoding.sh << 'SCRIPT_EOF'
+cat > "$PROJECT_DIR/run_with_encoding.sh" << SCRIPT_EOF
 #!/bin/bash
 # 一键运行智能配餐推荐系统（自动设置编码环境）
 
+# 获取脚本所在目录
+SCRIPT_DIR="\$( cd "\$( dirname "\${BASH_SOURCE[0]}" )" && pwd )"
+
 # 设置编码环境
-if [ -f "/home/engine/project/.encoding_profile" ]; then
-    source /home/engine/project/.encoding_profile
+if [ -f "\$SCRIPT_DIR/.encoding_profile" ]; then
+    source "\$SCRIPT_DIR/.encoding_profile"
 else
     # Fallback设置
     export LANG=C.UTF-8
@@ -107,20 +113,21 @@ echo "智能配餐推荐系统"
 echo "================================================"
 
 # 检查程序是否存在
-if [ ! -f "/home/engine/project/build/bin/MealRecommendationSystem" ]; then
+if [ ! -f "\$SCRIPT_DIR/build/bin/MealRecommendationSystem" ]; then
     echo "错误: 程序不存在，请先编译项目"
-    echo "运行: cd /home/engine/project && mkdir build && cd build && cmake .. && make"
+    echo "运行: cd \$SCRIPT_DIR && ./build.sh"
     exit 1
 fi
 
 # 运行程序
-cd /home/engine/project/build
-./bin/MealRecommendationSystem
+# 切换到二进制文件目录以确保能找到 data/ 目录
+cd "\$SCRIPT_DIR/build/bin"
+./MealRecommendationSystem
 SCRIPT_EOF
 
-chmod +x /home/engine/project/run_with_encoding.sh
-chmod +x /home/engine/project/.encoding_profile
+chmod +x "$PROJECT_DIR/run_with_encoding.sh"
+chmod +x "$PROJECT_DIR/.encoding_profile"
 
 echo ""
 echo "🎉 所有配置完成！"
-echo "现在可以运行: /home/engine/project/run_with_encoding.sh"
+echo "现在可以运行: $PROJECT_DIR/run_with_encoding.sh"

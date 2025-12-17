@@ -1,0 +1,15 @@
+version: '3.8'
+
+services:
+  meal-system:
+    build: .
+    image: meal-recommendation-system:latest
+    container_name: meal-system
+    stdin_open: true # Necessary for interactive input
+    tty: true        # Necessary for interactive input
+    volumes:
+      - meal_data:/app/build/bin/data
+    restart: unless-stopped
+
+volumes:
+  meal_data:

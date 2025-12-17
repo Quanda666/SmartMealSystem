@@ -109,6 +109,16 @@ RecommendationEngine (推荐引擎类)
 
 ## 编译和运行
 
+### Docker 部署 (推荐) 🐳
+
+为了简化部署过程，我们提供了 Docker 支持。您可以轻松地将系统部署为容器化应用。详细说明请参考 [部署指南](DEPLOYMENT.md)。
+
+**快速运行：**
+
+```bash
+docker-compose run --rm meal-system
+```
+
 ### 环境要求
 
 - C++17 或更高版本
