@@ -225,6 +225,25 @@ A: 可以编辑 `data/foods.txt` 文件添加新的食物条目。
 ### Q: 推荐不满意怎么办？
 A: 可以多次点击"生成推荐"，系统会生成不同的推荐方案。
 
+### Q: 调试时如何查看程序的命令行输出？
+A:
+- **Visual Studio 2022（推荐）**：按 **F5** 运行后会出现一个控制台窗口，里面会打印服务器启动信息、请求日志等。
+  - 如果你看不到控制台窗口，请检查是否被浏览器窗口遮挡（Alt+Tab 切换）。
+  - 也可以用 **Ctrl+F5（开始执行(不调试)）**，这样程序结束后控制台不会立刻关闭，方便查看输出。
+- **命令行启动**：在 `bin\x64\Debug\`（或 `bin\x64\Release\`）下用 `cmd/PowerShell` 运行 exe，也能看到完整命令行输出。
+
+### Q: 之前的“命令行菜单交互版”怎么打开？
+A: 当前版本已经切换为 **Web 操作界面**，所以运行时不会再出现“1/2/3 选菜单”的交互流程。
+
+如果你想使用早期的命令行交互版本，需要切换到历史分支再编译：
+- **在 VS 里切换**：菜单 `Git -> Manage Branches...`，找到 `remotes/origin/feat-intelligent-meal-recommender-cpp-vs2022`，Checkout 到本地分支。
+- **命令行切换**：
+  ```bash
+  git fetch
+  git switch -c legacy-cli origin/feat-intelligent-meal-recommender-cpp-vs2022
+  ```
+  然后重新生成/运行即可看到原始的命令行菜单界面。
+
 ### Q: 如何停止服务器？
 A: 在控制台窗口按 Ctrl+C，或直接关闭程序。
 
